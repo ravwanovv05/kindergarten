@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from main.models import Kindergarten
+
 
 class User(AbstractUser):
     ROLE_CHOICES = (
@@ -19,9 +21,9 @@ class User(AbstractUser):
     username = models.CharField(max_length=30, unique=True, verbose_name='Username')
     password = models.CharField(max_length=128, verbose_name='Password')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Date of birth')
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True, null=True, verbose_name='Role')
-    salary_status = models.BooleanField(default=False, blank=True, null=True, verbose_name='Salary status')
-    kindergarten_id = models.ForeignKey('main.Kindergarten', on_delete=models.CASCADE, verbose_name='Kindergarten ID')
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES,  verbose_name='Role')
+    salary_status = models.BooleanField(default=False, verbose_name='Salary status')
+    kindergarten = models.ForeignKey(Kindergarten, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
 
     class Meta:
@@ -29,7 +31,7 @@ class User(AbstractUser):
         verbose_name_plural = 'Users'
 
     def __str__(self):
-        return self.username
+        return f'{self.first_name} {self.last_name}'
 
 
 
