@@ -4,6 +4,5 @@ from accounts.serializers import RegisterSerializer
 from accounts.models.users import User
 
 class RegisterView(CreateAPIView):
-    queryset = User.objects.all()
     serializer_class = RegisterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny,]

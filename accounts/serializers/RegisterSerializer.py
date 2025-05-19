@@ -1,6 +1,7 @@
-from rest_framework.serializers import ModelSerializer
-
+from rest_framework.serializers import ModelSerializer, ValidationError
+from django.contrib.auth.password_validation import validate_password
 from accounts.models.users import User
+
 
 class RegisterSerializer(ModelSerializer):
     class Meta:
@@ -13,22 +14,24 @@ class RegisterSerializer(ModelSerializer):
             'date_of_birth',
             'password',
             'role',
-            'kindergarten',  # <-- To‘g‘risi shu
+            'kindergarten',
         ]
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise ValidationError("This username is already taken.")
+        return value
+
+    def validate_password(self, value):
+        validate_password(value)  # Django default password validators
+        return value
+
     def create(self, validated_data):
-        user = User(
-            username=validated_data['username'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            phone_number=validated_data['phone_number'],
-            date_of_birth=validated_data['date_of_birth'],
-            role=validated_data['role'],
-            kindergarten=validated_data['kindergarten'],
-        )
-        user.set_password(validated_data['password'])
+        password = validated_data.pop('password')
+        user = User(**validated_data)
+        user.set_password(password)
         user.save()
         return user

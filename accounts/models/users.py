@@ -23,7 +23,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Date of birth')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES,  verbose_name='Role')
     salary_status = models.BooleanField(default=False, verbose_name='Salary status')
-    kindergarten = models.ForeignKey(Kindergarten, on_delete=models.CASCADE, null=True, blank=True)
+    kindergarten = models.ForeignKey(Kindergarten, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
 
     class Meta:

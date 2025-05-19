@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, get_user_model
 
 User = get_user_model()
 
+
 class PhoneLoginSerializer(TokenObtainPairSerializer):
     username_field = 'phone_number'
 
@@ -19,9 +20,11 @@ class PhoneLoginSerializer(TokenObtainPairSerializer):
         except User.DoesNotExist:
             raise serializers.ValidationError("Noto‘g‘ri telefon raqam yoki parol")
 
+
         auth_user = authenticate(username=user.username, password=password)
         if not auth_user:
             raise serializers.ValidationError("Noto‘g‘ri telefon raqam yoki parol")
+
 
         data = super().validate({
             "username": user.username,
