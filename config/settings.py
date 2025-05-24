@@ -7,8 +7,6 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
 
@@ -34,7 +32,19 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'drf_yasg',
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist'
 ]
+
+# SWAGGER
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+        }
+    }
+}
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -87,16 +97,7 @@ REST_FRAMEWORK = {
 
 }
 
-# SWAGGER
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Bearer': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header',
-        }
-    }
-}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
