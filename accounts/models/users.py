@@ -14,7 +14,7 @@ class User(AbstractUser):
         ('nurse', 'Nurse'),
         ('chef', 'Chef'),
         ('parent', 'Parent'),
-        ('civil_servant', 'Civil Servant'),
+        ('civil_servant', 'Civil Servant'), # davlat hodimi
     )
     first_name = models.CharField(max_length=50, blank=True, null=True, verbose_name='First name')
     last_name = models.CharField(max_length=50, blank=True, null=True, verbose_name='Last name')
@@ -24,7 +24,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Date of birth')
     role = models.CharField(max_length=20, choices=ROLE_CHOICES,  verbose_name='Role')
     salary_status = models.BooleanField(default=False, verbose_name='Salary status')
-    kindergarten = models.ForeignKey(Kindergarten, on_delete=models.CASCADE,verbose_name='Kindergarten')
+    kindergarten = models.ForeignKey(Kindergarten, blank=True, null=True, on_delete=models.CASCADE,verbose_name='Kindergarten')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created at')
 
     class Meta:

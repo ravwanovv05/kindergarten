@@ -1,7 +1,8 @@
 from django.db import models
-
-
-class Region(models.Model):
+from mptt.models import MPTTModel
+from mptt.fields import TreeForeignKey
+class Region(MPTTModel):
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=120, unique=True, verbose_name='Title')
 
     class Meta:

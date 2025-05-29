@@ -2,7 +2,8 @@ from django.core.exceptions import PermissionDenied
 from requests.models import Response
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
-from rest_framework.permissions import IsAuthenticated
+
+from accounts.permissions.Admin import Admin
 from main.models import Kindergarten
 from main.serializers.KindergartenSerializer import KindergartenSerializer, KindergartenListSerializers
 
@@ -15,12 +16,12 @@ class KindergartenCreateAPIView(CreateAPIView):
 class KindergartenListAPIView(ListAPIView):
     queryset = Kindergarten.objects.all()
     serializer_class = KindergartenListSerializers
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = [Admin, ]
 
 
 class KindergartenUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = KindergartenSerializer
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = Admin
 
     def get_object(self):
         user = self.request.user
