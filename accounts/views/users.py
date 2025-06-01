@@ -1,9 +1,10 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from accounts.models import User
-from accounts.serializers.users import UserRegisterSerializer
-
+from accounts.serializers.users import UserRegisterSerializer, UserSerializer
+from rest_framework.views import APIView
 
 class UserRegisterGenericAPIView(GenericAPIView):
     serializer_class = UserRegisterSerializer
@@ -23,3 +24,12 @@ class UserRegisterGenericAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class UserInfo(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user = request.user
+        user_serializer = UserSerializer(user)
+        return Response(user_serializer.data)
