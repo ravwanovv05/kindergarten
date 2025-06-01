@@ -6,7 +6,7 @@ from main.models import Region
 class AddRegionsSerializer(ModelSerializer):
     class Meta:
         model = Region
-        fields = ('title',)
+        fields = ('parent', 'title',)
 
 class RegionSerializer(ModelSerializer):
     class Meta:

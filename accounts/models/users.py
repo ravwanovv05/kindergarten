@@ -14,7 +14,7 @@ class User(AbstractUser):
         ('nurse', 'Nurse'),
         ('chef', 'Chef'),
         ('parent', 'Parent'),
-        ('civil_servant', 'Civil Servant'), # davlat hodimi
+        ('civil_servant', 'Civil Servant'),
     )
     first_name = models.CharField(max_length=50, blank=True, null=True, verbose_name='First name')
     last_name = models.CharField(max_length=50, blank=True, null=True, verbose_name='Last name')
