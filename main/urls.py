@@ -1,13 +1,10 @@
 from django.urls import path
-
-from main.views.KindergartenView import KindergartenCreateAPIView, KindergartenListAPIView, KindergartenUpdateAPIView
-from main.views.RegionView import RegionCreateAPIView, RegionListAPIView, RegionKindergartenCountView
+from main.views.districts import AddDistrictGenericAPIView
+from main.views.kindergartens import AddKindergartenGenericAPIView
+from main.views.regions import AddRegionGenericAPIView
 
 urlpatterns = [
-    path('kindergarten/', KindergartenCreateAPIView.as_view(), name='kindergarten-create'),
-    path('kindergarten-list/', KindergartenListAPIView.as_view(), name='kindergarten-list'),
-    path('update-kindergarten/', KindergartenUpdateAPIView.as_view(), name='kindergarten-update'),
-    path('add-region/', RegionCreateAPIView.as_view(), name='region-create'),
-    path('region-list/', RegionListAPIView.as_view(), name='region-list'),
-    path('region/<int:pk>/kindergarten-count/', RegionKindergartenCountView.as_view(), name='region_kindergarten_count'),
+    path('region/add-region', AddRegionGenericAPIView.as_view(), name='add_region'),
+    path('region/add-district', AddDistrictGenericAPIView.as_view(), name='add_district'),
+    path('kindergarten/add-kindergarten', AddKindergartenGenericAPIView.as_view(), name='add_kindergarten'),
 ]
