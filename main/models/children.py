@@ -6,7 +6,7 @@ class Child(models.Model):
     last_name = models.CharField(max_length=100, verbose_name='Last name')
     date_of_birth = models.DateField(verbose_name='Date of birth')
     payment_status = models.BooleanField(default=False, verbose_name='Payment status')
-    parent_id = models.ForeignKey('accounts.User', on_delete=models.CASCADE, verbose_name='Parent ID')
+    parent_id = models.ForeignKey('accounts.User', blank=True, null=True, on_delete=models.CASCADE, verbose_name='Parent ID')
     group_id = models.ForeignKey('main.Group', on_delete=models.CASCADE, verbose_name='Group ID')
     added_at = models.DateTimeField(auto_now_add=True, verbose_name='Added at')
 

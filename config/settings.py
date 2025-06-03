@@ -16,6 +16,7 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 INSTALLED_APPS = [
+    'jazzmin', # noqa
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -154,6 +155,54 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Kindergarten",
+    "site_header": "Kindergarten",
+    "site_brand": "Kindergarten",
+    "site_icon": "images/favicon.png",
+    "welcome_sign": "Welcome to the Kindergarten",
+    "copyright": "Kindergarten",
+
+    "topmenu_links": [
+        {"name": "Kindergarten", "url": "home", "permissions": ["auth.view_user"]},
+        {"model": "accounts.User"},
+    ],
+
+    "show_sidebar": True,
+    "navigation_expanded": True,
+
+    "icons": {
+        "auth": "fas fa-accounts-cog",
+        "auth.user": "fas fa-user",
+        "accounts.User": "fas fa-user",
+        "auth.Group": "fas fa-accounts",
+        "admin.LogEntry": "fas fa-file",
+    },
+
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "brand_colour": "navbar-dark",
+    "accent": "accent-teal",
+    "navbar": "navbar-dark",
+    "sidebar": "sidebar-dark-info",
+    "theme": "cyborg",
+
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+}
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Tashkent'

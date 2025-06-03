@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from accounts.models import User
+from accounts.permissions.Admin import AdminPermission
 from accounts.serializers.users import UserRegisterSerializer, UserSerializer
 from rest_framework.views import APIView
-
+from django.db.models import Count
 class UserRegisterGenericAPIView(GenericAPIView):
     serializer_class = UserRegisterSerializer
 
@@ -33,3 +34,11 @@ class UserInfo(APIView):
         user = request.user
         user_serializer = UserSerializer(user)
         return Response(user_serializer.data)
+
+
+
+class RoleCount(APIView):
+    permission_classes = (AdminPermission,)
+    def get(self, requests):
+        role_count = User.objects.values('role').annotate(count=Count('id'))
+        return Response(role_count)
